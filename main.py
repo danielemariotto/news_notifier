@@ -1,13 +1,3 @@
-# simple Desktop Notifier application using Python. A desktop notifier is a simple application which produces a notification message in form of a pop-up message on desktop.
-
-# Features:
-# search for rss feed by giving topic or website url
-# get list of site base on topic
-# top news headlines
-# crypto news
-# google alert news
-# rss feed from sites
-
 import time
 import find_feed_url as find_feed_url
 from get_rss_data import get_news
