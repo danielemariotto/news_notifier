@@ -56,7 +56,7 @@ def find_url(site):
                 result.append(el)
     if len(result) == 0:
         print('Rss feed not found')
-        return
+        return 'Feed Not Found'
     else:
         r = requests.get(result[0]) 
         result = r.url
