@@ -3,11 +3,22 @@ import sendNews
 import threading
 newsThread = None
 
+def newsThreadF(website):
+    try:
+        result = sendNews.getNewsAndSend(website)
+        if result == 'Feed Not Found':
+            updateErrorLabel('Feed Not Found')
+        else:
+            updateErrorLabel('')
+    except Exception as e:
+        updateErrorLabel('Error')
+        print('Error')
+
 def getWebsite():
     global newsThread
     newsThread = None
     gWebsite = sitename.get()
-    newsThread = threading.Thread(target=sendNews.getNewsAndSend, args=(gWebsite,))
+    newsThread = threading.Thread(target=newsThreadF, args=(gWebsite,))
     sendNews.startingSendingNews()
     newsThread.start()
     
@@ -37,8 +48,12 @@ websiteTitle.pack()
 sitename = tk.Entry(width=20, font=("Arial", 19))
 sitename.pack()
 
-errorLabel = tk.Label(text=sendNews.feedError, font=("Arial", 19)) # TODO update on change
+def updateErrorLabel(error):
+    errorLabel.config(text=error)
+
+errorLabel = tk.Label(text='', font=("Arial", 19)) # TODO update on change
 errorLabel.pack()
+
 
 startButton = tk.Button(
     text="Start receveing news",

@@ -33,6 +33,7 @@ def getNewsAndSend(website):
     else:
         global feedError
         feedError = 'Feed Not Found'
+        return feedError
 if __name__ == "__main__":
     website = input('Insert a website you want news via notification: ')
     getNewsAndSend(website)
