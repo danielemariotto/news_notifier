@@ -5,12 +5,12 @@ import requests
 import urllib.parse
 import feedparser
 
-def find_url(site):
-    raw = requests.get(site).text
+async def findUrl(site):
+    raw = await requests.get(site).text
     result = []
     possible_feeds = []
     html = bs4(raw, features="lxml")
-    feed_urls = html.findAll('link', rel='alternate') # ?-> rel='alternate'
+    feed_urls = html.findAll('link', rel='alternate')
     if len(feed_urls) > 1:
         for f in feed_urls:
             t = f.get('type', None) # ?
@@ -19,7 +19,7 @@ def find_url(site):
                     href = f.get('href', None)
                     if href:
                         possible_feeds.append(href)
-    parsed_url = urllib.parse.urlparse(site) # why needed second check?
+    parsed_url = urllib.parse.urlparse(site)
     base = parsed_url.scheme+'://'+parsed_url.hostname
     atags = html.findAll('a')
     for a in atags:
@@ -58,7 +58,7 @@ def find_url(site):
         print('Rss feed not found')
         return 'Feed Not Found'
     else:
-        r = requests.get(result[0]) 
+        r = await requests.get(result[0]) 
         result = r.url
         return(result)
 

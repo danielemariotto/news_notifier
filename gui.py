@@ -1,11 +1,16 @@
 import tkinter as tk
 import sendNews
 import threading
+import time
+import asyncio
+
 newsThread = None
 
-def newsThreadF(website):
+async def newsThreadF(website):
     try:
-        result = sendNews.getNewsAndSend(website)
+        # result = sendNews.getNewsAndSend(website)
+        result = await sendNews.startCheckingForNews(website, 5)
+
         if result == 'Feed Not Found':
             updateErrorLabel('Feed Not Found')
         else:
@@ -14,14 +19,15 @@ def newsThreadF(website):
         updateErrorLabel('Error')
         print('Error')
 
-def getWebsite():
+async def getWebsite():
     global newsThread
     newsThread = None
     gWebsite = sitename.get()
-    newsThread = threading.Thread(target=newsThreadF, args=(gWebsite,))
+    # task = asyncio.create_task(newsThreadF(gWebsite))
+    # result = await task
+    newsThread = threading.Thread(target=newsThreadF, args=(gWebsite,)) #FIXME
     sendNews.startingSendingNews()
     newsThread.start()
-    
 
 def stopNews():
     sendNews.stopSendingNews()

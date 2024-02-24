@@ -2,8 +2,8 @@ import requests
 import xml.etree.ElementTree as ET
 
 
-def loadRSS(url):
-    response = requests.get(url)
+async def loadRSS(url):
+    response = await requests.get(url)
     return response.content
 
 def parseXML(rss):
@@ -23,7 +23,7 @@ def parseXML(rss):
         newsItems.append(news)
     return newsItems
 
-def get_news(url):
-    rss = loadRSS(url)
+async def getNews(url):
+    rss = await loadRSS(url)
     news = parseXML(rss)
     return news

@@ -1,5 +1,5 @@
 from plyer import notification
-def send_notification(title, message):
+def sendNotification(title, message):
     notification.notify(
         app_name='News Notifier',
         title=title,
