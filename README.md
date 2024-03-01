@@ -6,6 +6,3 @@ A desktop notifier is a simple application which produces a notification message
 - [x] get rss feed from site url
 - [x] show a notification on rss feed
 - [x] have GUI, to set sites, stop notification
-- [ ] make app installable and run on startup
-- [ ] search for sites by giving topic
-- [ ] from google alert
